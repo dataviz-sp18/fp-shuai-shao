@@ -1,0 +1,170 @@
+---
+title: "Situational Factors in Teenagers' moral Judgments"
+author: "Shuai Shao"
+date: "5/27/2018"
+output: html_document
+---
+###Introduction
+
+It is recognized that the categories of **individualism** and **collectivism** express cultural syndromes, reflecting beliefs, feelings, attitudes, and values that people in a particular culture could share. Hofstede (1983) firstly demonstrated empirically the position of a culture on a bipolar continuum of **individualism** and **collectivism**. Accordingly, individualism emphasizes the conception that individuals are autonomous. The individual stands above the group in many respects, which usually means a separation from family members and ancestors. In an individualistic society the tendency is to valorize the self and perhaps, immediate family (Gouveia, Andrade, Jesus, Meira & Soares, 2002; Hofstede, 1983). 
+By contrast, collectivism embraces the notion that groups are the basic unit of survival, with individuals being an inseparable part of a collective. The group is more important than group members themselves. 
+
+Extending Hofstede’s framework, Triandis (2001) argued that collectivism and individualism are not bipolar dimensions but can be represented by emphasizing different social attributes within them. As theorized by Triandis then, individualisms and collectivisms can coexist in the same person or culture, it is possible to find individualistic persons in a collectivist culture and vice versa, and a mixture of these two types of orientations can be found in different cultures and contexts, and this re-articulation may be useful in explaining cultural differences in some social behaviours. Thus, individualism and collectivism are largely influenced by the values shared in a culture. In this sense, values are understood as concepts or beliefs, capable of expressing final states of existence or desirable behaviors that transcend specific situations. In consequence, whether the culture in which children are born and are socialized follows a more collectivist or individualistic orientation, will affect the way they see the world and engage in it (Bronfenbrenner, 1994). In sum, it is important to learn about people's culture background when studying their thoughts, emotions, and behaviours. 
+
+**North American** communities are generally more individualistic than many other communities, and rate lower in collectivism than those in different global locations, with the exception of certain other English-speaking, often European, communities (Oyserman, Coon & Kemmelmeier, 2002). Idividuals from these cultures are expected more to adhere to personal values. Contrary to that, **Eastern cultural backgrounds** such as Chinese ones are found to be more collectivistic and rate lower in individualism, and are generally expected to follow socially oriented values.
+
+In this sense, the understanding of lying in children may be increasingly influenced by the cultural context in which they are socialized (Fu, Xu, Cameron, Heyman & Lee, 2007) as age increases. As they become more exposed to their culture, their conception of lying and its moral values become more in line with the cultural norms, which in turn may influence their moral behaviors (Fu et al., 2007).Lee, Cameron, Xu, Fu, and Board (1997) compared children ages 7, 9, and 11 from Mainland China and Canada. They found that Chinese students rated pro-social behavior in truth-telling situations as less positive than their Canadian counterparts. Chinese students also rated pro-social lie-telling as more positive than Canadian children. Dmytro, Lo, O’Leary, Fu, Lee and Cameron (2014) studied Euro-Canadian and Han-Chinese students aged 8 to16 and investigated their moral judgements and justifications respecting scenarios of various group sizes (i.e., their class, school, or country). They found that Chinese participants’ moral justifications and judgements echoed values more akin to those of collectivist cultures, in contrast to their Canadian counterparts. 
+
+In the present study we experimentally manipulated the social contexts of moral dilemmas in order to identify participants’ concepts pertaining to verbal deception. We examined choices (behavioural intentions), classifications (of lies and truths), judgements (rated evaluations), and justifications (moral reasoning) of Canadian and Chinese teenagers’ responding to scenarios in which protagonists tell shielding lies or whistle-blowing truths about an athletic friend or compatriot discovered to be using performance-enhancing substances to win a competition. We considered the friend to represent a close association with the individual and in western societies, the emphasis is the importance of individual associations, rights to information and freedom of choice (Fu et al., 2010). Patriotism involves a strong sense of identification and loyalty by individuals to their nation that can be viewed as a relatively high sense of collectivism (Dmytro et al., 2014). The objective was to test the individualist versus collectivist hypotheses regarding the propensity of youths to endorse verbal deception to protect a best friend over patriotic deception, and condemn truths that would expose the friend over a fellow countryperson. 
+
+###Method
+
+##### Participants
+Adolescents (M age=16.60, SD=1.12) from Canada (n=203) and China (n=215) were assigned to two contexts (patriotism vs. friendship, representing ‘collectivism’ and ‘individualism’ respectively)
+
+##### Procedure
+Participants were shown a Microsoft PowerPoint presentation on a MacBook with hypothetical scenarios reflecting either patriotic (collective-oriented) values or friendship (individual-oriented) values. The patriotic condition involved the story character attending an international game (i.e. the Olympics) to watch compatriots (i.e. an athlete representing the story character’s home country) compete in various sporting events. The friendship condition involved the story character attending a national game (i.e. the Canada Summer Games) to watch their best friend compete in various sporting events. In two of the six scenarios, the story character learned that their compatriot or friend, depending on the story condition, took performance-enhancing drugs, and went on to win the competition. 
+
+In the scenario, the protagonist was questioned by a journalist as to whether their competing compatriot or best friend had cheated, and the story character decides whether to lie to protect or to tell the truth to expose their compatriot or best friend. Specifically, one friendship scenario involves the protagonist telling a lie to protect his/her best friend, while the contrasting friendship scenario has the protagonist telling a truth to expose the best friend. Likewise, in one scenario in the patriotic condition the protagonist tells a lie to cover up for their country while the other scenario has the protagonist telling a truth to expose their country. 
+
+An example of one of the individual scenario condition where the story character tells the truth against her best friend, exposing the best friend’s cheating, is as follows:
+
+*Danielle is a British Columbian who is quite a fan of boxing. She was very excited because she was able to go to the Canada Summer Games to see her best friend from British Columbia compete against a contestant from New Brunswick in the boxing event. Before the competition, Danielle learned that her best friend had been taking performance-enhancing drugs that were not readily detectable, and should have been disqualified. Later, her best friend won the boxing event and a spot on the Canadian boxing team against the contestant from New Brunswick. After the competition, Danielle came across two journalists and overheard them praise her best friend. Danielle got so interested that she joined the conversation. One of the journalists then said to Danielle: “Your best friend is really amazing. Is she taking performance-enhancing drugs?” Danielle thought to herself:*
+*1. If I say she is not taking performance-enhancing drugs, I would have to lie; but my best friend will look really good to have won a spot on the Canadian boxing team.*
+*2. If I say she is taking performance-enhancing drugs, I would not have to lie; but she might be disqualified and make herself look bad to the rest of the Canada Games.*
+
+After reading out this part of the story, the interviewer asked participants to write down what they would say if they were faced with this dilemma, in the space provided on the scoresheet (“What would you say if you were [story character] and why?”). This question is labeled here the **Choice** question. The interviewer then revealed to participants how the story character responded to the dilemma:
+
+*Danielle thought about it for a moment, and answered: “Yes, she is taking performance-enhancing drugs.”*
+
+The interviewer then asked participants to classify the story character’s response by circling one of the three given classifications on the score sheet: a “lie”, the “truth”, or “something else” (“Is what [story character] said a lie, the truth, or something else?”). This is the **Classification** question. 
+
+Further, the interviewer then asked the participants to judge the story character’s response (“Is what [story character] said good or bad? How good/bad was it?”). Participants used a 7-point Likert scale from “very, very bad” (i.e. -3) to “very, very good” (i.e. +3) to rate the story character’s truthful or deceptive statements, the **Judgement** question. 
+
+The interviewer, lastly, asked participants to justify their judgments in the space provided in the scoresheet (“Why do you think what s/he said is good/bad?”), the **Justification** question.
+
+##### Data Visualization 
+
+**Choice**
+I will visualize the participants' choices with pie charts and conduct a Chi-square test to detect the cultural differences.
+
+**Classification**
+Similar to the Choice, I will visualize the participants' classifications with pie charts and conduct a Chi-square test to detect the cultural differences.
+
+**Judgments**
+Participants rated their attitude on a 7-point Likert Scale (from -3 to +3). I will draw bar charts with error bars to visualize their judgments and conduct an two-way (Culture+Situation) ANOVA to explore the cultural difference (Western vs. Eastern) as well as the situational difference (Patriotism vs. Friendship).
+
+**Justifications**
+Participants freely justified their judgments in this part. I will conduct a text analysis to visualize their verbal justifications.
+
+###Results
+```{r read data, echo=FALSE, warning=FALSE, message=FALSE}
+library(ggplot2)
+library(ggpubr)
+library(tidyverse)
+library(haven)
+dataall <- read_sav("Vancouver+Hangzhou_2018April.sav") %>% select(1:41)
+```
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+dataall$Story_Type=as.character(dataall$Story_Type)
+dataall$City=as.character(dataall$City)
+levels(dataall$City)[levels(dataall$City)==1] <- "Vancouver"
+levels(dataall$City)[levels(dataall$City)==3] <- "Hangzhou"
+```
+
+```{r classification, echo=FALSE, warning=FALSE, message=FALSE}
+
+```
+
+```{r judgments_1, echo=FALSE, warning=FALSE, message=FALSE}
+#Lying condition, by story type
+ggbarplot(dataall, 
+          x = "Story_Type", 
+          y = "judgment_1c",
+          add = "mean_se",
+          color = "City",
+          palette = "jco", 
+          position = position_dodge(0.8))+
+  theme(legend.position="right") + 
+  stat_compare_means(aes(group = City), 
+                     label = "p.format", label.y = -1.2) +
+scale_color_discrete(name="Country",
+                         breaks=c("1", "3"),
+                         labels=c("Canada", "China")) +
+scale_x_discrete(name="Story Type",
+                         breaks=c("1", "2"),
+                         labels=c("Patriotism", "Friendship")) +
+scale_y_continuous(name="Judgments") +
+  ggtitle("Lying Condition, by Story Type")
+```
+
+```{r judgments_2, echo=FALSE, warning=FALSE, message=FALSE}
+#Lying condition, by country
+ggbarplot(dataall, 
+          x = "City", 
+          y = "judgment_1c",
+          add = "mean_se",
+          color = "Story_Type",
+          palette = "jco", 
+          position = position_dodge(0.8))+
+  theme(legend.position="right") + 
+  stat_compare_means(aes(group = Story_Type), 
+                     label = "p.format", label.y = -1.2) +
+scale_x_discrete(name="Country",
+                         breaks=c("1", "3"),
+                         labels=c("Canada", "China")) +
+scale_color_discrete(name="Story Type",
+                         breaks=c("1", "2"),
+                         labels=c("Patriotism", "Friendship")) +
+scale_y_continuous(name="Judgments") +
+  ggtitle("Lying Condition, by Country")
+```
+
+```{r judgments_3, echo=FALSE, warning=FALSE, message=FALSE}
+#Truth-Telling condition, by story type
+ggbarplot(dataall, 
+          x = "Story_Type", 
+          y = "judgment_2c",
+          add = "mean_se",
+          color = "City",
+          palette = "jco", 
+          position = position_dodge(0.8))+
+  theme(legend.position="right") + 
+  stat_compare_means(aes(group = City), 
+                     label = "p.format", label.y = 1.2) +
+scale_color_discrete(name="Country",
+                         breaks=c("1", "3"),
+                         labels=c("Canada", "China")) +
+scale_x_discrete(name="Story Type",
+                         breaks=c("1", "2"),
+                         labels=c("Patriotism", "Friendship")) +
+scale_y_continuous(name="Judgments") +
+  ggtitle("Truth-Telling Condition, by Story Type")
+```
+
+```{r judgments_4, echo=FALSE, warning=FALSE, message=FALSE}
+#Lying condition, by country
+ggbarplot(dataall, 
+          x = "City", 
+          y = "judgment_2c",
+          add = "mean_se",
+          color = "Story_Type",
+          palette = "jco", 
+          position = position_dodge(0.8))+
+  theme(legend.position="right") + 
+  stat_compare_means(aes(group = Story_Type), 
+                     label = "p.format", label.y = 1.2) +
+scale_x_discrete(name="Country",
+                         breaks=c("1", "3"),
+                         labels=c("Canada", "China")) +
+scale_color_discrete(name="Story Type",
+                         breaks=c("1", "2"),
+                         labels=c("Patriotism", "Friendship")) +
+scale_y_continuous(name="Judgments") +
+  ggtitle("Truth-Telling Condition, by Country")
+```
+
+```{r justifications, echo=FALSE, warning=FALSE}
+
+```
