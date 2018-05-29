@@ -63,7 +63,19 @@ library(ggplot2)
 library(ggpubr)
 library(tidyverse)
 library(haven)
-dataall <- read_sav("Vancouver+Hangzhou_2018April.sav") %>% select(1:41)
+library(rvest)
+library(stringr)
+library(tidytext)
+library(wordcloud)
+library(tidyr)
+library(dplyr)
+library(reshape2)
+library(wordcloud)
+
+set.seed(1234)
+theme_set(theme_minimal())
+
+dataall <- read_sav("Vancouver+Hangzhou_2018April.sav") %>% select(1,3,5,7,11,15,18,20:41)
 ```
 
 ```{r echo=FALSE, warning=FALSE, message=FALSE}
@@ -73,8 +85,77 @@ levels(dataall$City)[levels(dataall$City)==1] <- "Vancouver"
 levels(dataall$City)[levels(dataall$City)==3] <- "Hangzhou"
 ```
 
-```{r classification, echo=FALSE, warning=FALSE, message=FALSE}
+```{r choice_lying, echo=FALSE, warning=FALSE, message=FALSE}
+dataall$Story_Type <- gsub('1', 'Patriotism', dataall$Story_Type)
+dataall$Story_Type <- gsub('2', 'Friendship', dataall$Story_Type)
 
+dataall %>%
+  ggplot() +
+  geom_bar(mapping = aes(x = City, 
+                         fill = dataall$choice_1a1),
+           position = "fill")+
+  facet_wrap(~ Story_Type, ncol = 2)+
+  scale_x_discrete(name="Country",
+                         breaks=c("1", "3"),
+                         labels=c("Canada", "China")) +
+scale_y_continuous(name="Judgments") +
+scale_fill_discrete(name="Choice",
+                    breaks=c("1", "2", "3","4"),
+                    labels=c("Lie", "Truth", "Something Else","Unclassifiable"))+
+  ggtitle("Choice",subtitle = "Lying condition")
+```
+
+```{r choice_truth-telling, echo=FALSE, warning=FALSE, message=FALSE}
+dataall %>%
+  ggplot() +
+  geom_bar(mapping = aes(x = City, 
+                         fill = dataall$choice_2a1),
+           position = "fill")+
+  facet_wrap(~ Story_Type, ncol = 2)+
+  scale_x_discrete(name="Country",
+                         breaks=c("1", "3"),
+                         labels=c("Canada", "China")) +
+scale_y_continuous(name="Judgments") +
+scale_fill_discrete(name="Choice",
+                    breaks=c("1", "2", "3","4"),
+                    labels=c("Lie", "Truth", "Something Else","Unclassifiable"))+
+  ggtitle("Choice",subtitle = "Truth-Telling condition")
+```
+
+```{r classification_lying, echo=FALSE, warning=FALSE, message=FALSE}
+dataall$classify_1b=as.character(dataall$classify_1b)
+dataall %>%
+  ggplot() +
+  geom_bar(mapping = aes(x = City, 
+                         fill = dataall$classify_1b),
+           position = "fill")+
+  facet_wrap(~ Story_Type, ncol = 2)+
+  scale_x_discrete(name="Country",
+                         breaks=c("1", "3"),
+                         labels=c("Canada", "China")) +
+scale_y_continuous(name="Judgments") +
+scale_fill_discrete(name="Choice",
+                    breaks=c("1", "2", "3","4"),
+                    labels=c("Lie", "Truth", "Something Else","Unclassifiable"))+
+  ggtitle("Classification",subtitle = "Lying condition")
+```
+
+```{r classification_truth-telling, echo=FALSE, warning=FALSE, message=FALSE}
+dataall$classify_2b=as.character(dataall$classify_2b)
+dataall %>%
+  ggplot() +
+  geom_bar(mapping = aes(x = City, 
+                         fill = dataall$classify_2b),
+           position = "fill")+
+  facet_wrap(~ Story_Type, ncol = 2)+
+  scale_x_discrete(name="Country",
+                         breaks=c("1", "3"),
+                         labels=c("Canada", "China")) +
+scale_y_continuous(name="Judgments") +
+scale_fill_discrete(name="Choice",
+                    breaks=c("1", "2", "3","4"),
+                    labels=c("Lie", "Truth", "Something Else","Unclassifiable"))+
+  ggtitle("Classification",subtitle = "Truth-telling condition")
 ```
 
 ```{r judgments_1, echo=FALSE, warning=FALSE, message=FALSE}
@@ -165,6 +246,171 @@ scale_y_continuous(name="Judgments") +
   ggtitle("Truth-Telling Condition, by Country")
 ```
 
-```{r justifications, echo=FALSE, warning=FALSE}
+```{r justifications_lying, echo=FALSE, warning=FALSE}
+library(SnowballC)
+library(tm)
 
+L_justification <- dataall %>% select(18) 
+L_justification$Justification_1d_exact<-removePunctuation(L_justification$Justification_1d_exact)
+List <- strsplit(L_justification$Justification_1d_exact, " ")
+
+L_text <- data.frame(word=unlist(List)) %>% 
+  filter(word!="") 
+  
+L_text$word = as.character(L_text$word)
+L_text$word <- tolower(L_text$word)
+
+mystopwords <- c(stopwords('english'), "dont", "stephani","although")
+mystopwords <- data.frame(word=unlist(mystopwords))
+L_cleaned <- L_text %>%
+  anti_join(mystopwords) 
+
+#Substitute the words that "Stop_words" failed to recognize
+L_cleaned$stem <- stemDocument(L_cleaned$word)
+L_cleaned$stem <- gsub('told', 'tell', L_cleaned$stem)
+L_cleaned$stem <- gsub('said', 'say', L_cleaned$stem)
+
+L_cleaned%>%
+#Count the words
+  count(stem, sort = TRUE) %>%
+  mutate(top = seq_along(stem)) %>%
+#Filter 15 most frequent words
+  filter(top <= 15) %>%
+#Reorder the words
+  mutate(stem = reorder(stem, n)) %>% 
+#Visualize the outcome
+  ggplot(aes(stem, n)) +
+  geom_col(show.legend = FALSE, fill = "green") +
+  geom_text(aes(label = stem), hjust = "right", size = 4) +
+  coord_flip() +
+  labs(x = "Word", 
+       y = "Word Frequency",
+       title = "The Most Common Word Stems in Justifications")
+```
+```{r Word cloud}
+#Create a word cloud
+L_cleaned %>%
+  group_by(word) %>%
+  count() %>%
+  with(wordcloud(word, n, max.words = 100))
+```
+
+```{r sentiment analysis_1}
+#Generate data frame with sentiment derived from the NRC
+L_nrc <- L_cleaned %>% 
+  inner_join(get_sentiments("nrc")) %>%
+  group_by(sentiment)
+
+L_nrc %>%
+  #Summarize count per word
+  ungroup %>%
+  count(word, sentiment) %>%
+  #Highest freq on top
+  arrange(desc(n)) %>% 
+  #Identify rank within group
+  group_by(sentiment) %>% # 
+  mutate(top = seq_along(word)) %>%
+  #Retain top 8 frequent words
+  filter(top <= 8) %>%
+  #Create barplot
+  ggplot(aes(x = -top, y = n, fill = sentiment)) + 
+  geom_col(color = "black") +
+  #Print words in plot instead of as axis labels
+  geom_text(aes(label = word), hjust = "left", nudge_y = 5, size = 2) +
+  labs(title = "Most frequent words in Justifications (lying condition)",
+       x = NULL,
+       y = "Word count") +
+  facet_wrap( ~ sentiment, ncol = 5) +
+  coord_flip() +
+  theme(legend.position = "none",
+        #Rotate x text
+        axis.text.x = element_text(angle = 15, hjust = 1),
+        #Remove tick marks and text on y-axis
+        axis.ticks.y = element_blank(),
+        axis.text.y = element_blank())
+```
+
+```{r justifications_truth-telling, echo=FALSE, warning=FALSE}
+library(SnowballC)
+library(tm)
+
+T_justification <- dataall %>% select(29) 
+T_justification$Justification_2d_exact<-removePunctuation(T_justification$justification_2d_exact)
+List2 <- strsplit(T_justification$Justification_2d_exact, " ")
+
+T_text <- data.frame(word=unlist(List2)) %>% 
+  filter(word!="") 
+  
+T_text$word = as.character(T_text$word)
+T_text$word <- tolower(T_text$word)
+
+mystopwords <- c(stopwords('english'), "dont", "stephani","although","will")
+mystopwords <- data.frame(word=unlist(mystopwords))
+T_cleaned <- T_text %>%
+  anti_join(mystopwords) 
+
+#Substitute the words that "Stop_words" failed to recognize
+T_cleaned$stem <- stemDocument(T_cleaned$word)
+T_cleaned$stem <- gsub('told', 'tell', T_cleaned$stem)
+T_cleaned$stem <- gsub('said', 'say', T_cleaned$stem)
+
+T_cleaned%>%
+#Count the words
+  count(stem, sort = TRUE) %>%
+  mutate(top = seq_along(stem)) %>%
+#Filter 15 most frequent words
+  filter(top <= 15) %>%
+#Reorder the words
+  mutate(stem = reorder(stem, n)) %>% 
+#Visualize the outcome
+  ggplot(aes(stem, n)) +
+  geom_col(show.legend = FALSE, fill = "green") +
+  geom_text(aes(label = stem), hjust = "right", size = 4) +
+  coord_flip() +
+  labs(x = "Word", 
+       y = "Word Frequency",
+       title = "The Most Common Word Stems in Justifications")
+```
+
+```{r Word cloud_truth-telling}
+#Create a word cloud
+T_cleaned %>%
+  group_by(word) %>%
+  count() %>%
+  with(wordcloud(word, n, max.words = 100))
+```
+
+```{r sentimen}
+#Generate data frame with sentiment derived from the NRC
+T_nrc <- T_cleaned %>% 
+  inner_join(get_sentiments("nrc")) %>%
+  group_by(sentiment)
+
+T_nrc %>%
+  #Summarize count per word
+  ungroup %>%
+  count(word, sentiment) %>%
+  #Highest freq on top
+  arrange(desc(n)) %>% 
+  #Identify rank within group
+  group_by(sentiment) %>% # 
+  mutate(top = seq_along(word)) %>%
+  #Retain top 8 frequent words
+  filter(top <= 8) %>%
+  #Create barplot
+  ggplot(aes(x = -top, y = n, fill = sentiment)) + 
+  geom_col(color = "black") +
+  #Print words in plot instead of as axis labels
+  geom_text(aes(label = word), hjust = "left", nudge_y = 5, size = 2) +
+  labs(title = "Most frequent words in Justifications (truth-telling condition)",
+       x = NULL,
+       y = "Word count") +
+  facet_wrap( ~ sentiment, ncol = 5) +
+  coord_flip() +
+  theme(legend.position = "none",
+        #Rotate x text
+        axis.text.x = element_text(angle = 15, hjust = 1),
+        #Remove tick marks and text on y-axis
+        axis.ticks.y = element_blank(),
+        axis.text.y = element_blank())
 ```
