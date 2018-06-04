@@ -1,0 +1,12 @@
+name: moral_judgments
+title: Moral Judgments
+username:
+account: shaoshuai
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 353912
+bundleId: 1409472
+url: https://shaoshuai.shinyapps.io/moral_judgments/
+when: 1528086603.55873
+asMultiple: FALSE
+asStatic: FALSE

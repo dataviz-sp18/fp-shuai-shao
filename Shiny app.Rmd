@@ -1,0 +1,482 @@
+---
+title: "Teenagers' Moral Judgments"
+runtime: shiny
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows
+    vertical_layout: fill
+    social: menu
+    themes: Journal
+---
+
+```{r setup, include=FALSE}
+
+library(shiny)
+library(plotly) 
+library(haven)
+library(reshape2)
+library(ggplot2) 
+library(ggpubr)
+library(sp)
+library(dplyr)
+library(flexdashboard) 
+library(rgeos)
+library(readr)
+library(ggthemes)
+library(wordcloud2)
+library(SnowballC)
+library(tm)
+library(tidytext)
+library(shinydashboard)
+
+set.seed(1234)
+theme_set(theme_minimal())
+
+dataall <- read_sav("Vancouver+Hangzhou_2018April.sav") %>% select(1,3,5,7,11,15,18,20:41)
+
+```
+
+Sidebar {.sidebar}
+======================================================================
+In this webpage, I will visualize the results of __Olympics Study__. It is a cross-cultural comparison in teenagers' moral judgments between China and Canada.
+
+Participants read a moral dilemma in which the protagonist knew that his/her friend/national team cheated in the Olympics games and had to tell a lie/truth to protect/expose the best friend/national team. 
+
+Please click the __Abstract__ tab to see the research abstract.
+
+Please click the __Introduction__ tab to see the brief literature review.
+
+Please click the __Choice__ tab to see the results of choice.
+
+Please click the __Classification__ tab to see the results of classification.
+
+Please click the __Judgment__ tab to see the results of judgments.
+
+Please click the __Justification__ tab to see the text analysis of justifications.
+
+Thanks to [UBC Child Study Lab](http://www2.unb.ca/~cameron/ubcresearchassistants.html) 
+
+Abstract
+======================================================================
+
+
+It is suggested that the categories of individualism and collectivism express cultural syndromes, reflecting beliefs, feelings, attitudes, and values that people in a particular culture could share. North Americans are recognized as being more individualistic in comparison to residents in many other global locations whereas East Asians are more likely to be collectivistic. In the present study, we experimentally manipulated the social contexts of moral dilemma scenarios in order to identify participants’ decisions pertaining to verbal deception. We examined choices (behavioral intentions), classifications (of lies and truths), judgements (rated evaluations), and justifications (moral reasoning) of 203 Canadian adolescents and 215 Chinese teenagers. Participants were presented with moral dilemmas reflecting either collective-oriented patriotic values or individual-oriented friendship values in a sports-related, competitive misdemeanor context. Canadian teenagers reported that they were more inclined to tell the truth against their country than their friend and were more likely to tell a lie for a friend than their country. On the contrary, Chinese teenagers are more willing to lie to protect their country than their friend, whereas they are more likely to tell a truth to expose their friends rather than their country. In common, they categorized a lie as a lie and a truthful statement as the truth in both scenarios, with almost no statistical difference. Canadian participants rated the truth to expose a friend as significantly less favourable than that to expose a country. However, we failed to find other significant difference for now. In conclusion, Canadian adolescents are more likely to value lying to support their friends rather than for their country, and favored telling the truth against their country rather than against their friends and the situation is the opposite for Chinese teenagers.
+
+Introduction
+======================================================================
+
+It is recognized that the categories of **individualism** and **collectivism** express cultural syndromes, reflecting beliefs, feelings, attitudes, and values that people in a particular culture could share. Hofstede (1983) firstly demonstrated empirically the position of a culture on a bipolar continuum of **individualism** and **collectivism**. Accordingly, individualism emphasizes the conception that individuals are autonomous. The individual stands above the group in many respects, which usually means a separation from family members and ancestors. In an individualistic society the tendency is to valorize the self and perhaps, immediate family (Gouveia, Andrade, Jesus, Meira & Soares, 2002; Hofstede, 1983). 
+By contrast, collectivism embraces the notion that groups are the basic unit of survival, with individuals being an inseparable part of a collective. The group is more important than group members themselves. 
+
+Extending Hofstede’s framework, Triandis (2001) argued that collectivism and individualism are not bipolar dimensions but can be represented by emphasizing different social attributes within them. As theorized by Triandis then, individualisms and collectivisms can coexist in the same person or culture, it is possible to find individualistic persons in a collectivist culture and vice versa, and a mixture of these two types of orientations can be found in different cultures and contexts, and this re-articulation may be useful in explaining cultural differences in some social behaviours. Thus, individualism and collectivism are largely influenced by the values shared in a culture. In this sense, values are understood as concepts or beliefs, capable of expressing final states of existence or desirable behaviors that transcend specific situations. In consequence, whether the culture in which children are born and are socialized follows a more collectivist or individualistic orientation, will affect the way they see the world and engage in it (Bronfenbrenner, 1994). In sum, it is important to learn about people's culture background when studying their thoughts, emotions, and behaviours. 
+
+**North American** communities are generally more individualistic than many other communities, and rate lower in collectivism than those in different global locations, with the exception of certain other English-speaking, often European, communities (Oyserman, Coon & Kemmelmeier, 2002). Idividuals from these cultures are expected more to adhere to personal values. Contrary to that, **Eastern cultural backgrounds** such as Chinese ones are found to be more collectivistic and rate lower in individualism, and are generally expected to follow socially oriented values.
+
+In this sense, the understanding of lying in children may be increasingly influenced by the cultural context in which they are socialized (Fu, Xu, Cameron, Heyman & Lee, 2007) as age increases. As they become more exposed to their culture, their conception of lying and its moral values become more in line with the cultural norms, which in turn may influence their moral behaviors (Fu et al., 2007).Lee, Cameron, Xu, Fu, and Board (1997) compared children ages 7, 9, and 11 from Mainland China and Canada. They found that Chinese students rated pro-social behavior in truth-telling situations as less positive than their Canadian counterparts. Chinese students also rated pro-social lie-telling as more positive than Canadian children. Dmytro, Lo, O’Leary, Fu, Lee and Cameron (2014) studied Euro-Canadian and Han-Chinese students aged 8 to16 and investigated their moral judgements and justifications respecting scenarios of various group sizes (i.e., their class, school, or country). They found that Chinese participants’ moral justifications and judgements echoed values more akin to those of collectivist cultures, in contrast to their Canadian counterparts. 
+
+In the present study we experimentally manipulated the social contexts of moral dilemmas in order to identify participants’ concepts pertaining to verbal deception. We examined choices (behavioural intentions), classifications (of lies and truths), judgements (rated evaluations), and justifications (moral reasoning) of Canadian and Chinese teenagers’ responding to scenarios in which protagonists tell shielding lies or whistle-blowing truths about an athletic friend or compatriot discovered to be using performance-enhancing substances to win a competition. We considered the friend to represent a close association with the individual and in western societies, the emphasis is the importance of individual associations, rights to information and freedom of choice (Fu et al., 2010). Patriotism involves a strong sense of identification and loyalty by individuals to their nation that can be viewed as a relatively high sense of collectivism (Dmytro et al., 2014). The objective was to test the individualist versus collectivist hypotheses regarding the propensity of youths to endorse verbal deception to protect a best friend over patriotic deception, and condemn truths that would expose the friend over a fellow countryperson. 
+
+Method
+======================================================================
+```{r}
+dataall$Story_Type=as.character(dataall$Story_Type)
+dataall$City=as.character(dataall$City)
+dataall$Story_Type <- gsub('1', 'Patriotism', dataall$Story_Type)
+dataall$Story_Type <- gsub('2', 'Friendship', dataall$Story_Type)
+
+dataall <- dataall %>% 
+  mutate(Country=City)
+dataall$Country <- gsub('1', 'Canada', dataall$Country)
+dataall$Country <- gsub('3', 'China', dataall$Country)
+
+dataall$choice_1a1 <- gsub('1', 'Lie', dataall$choice_1a1)
+dataall$choice_1a1 <- gsub('2', 'Truth', dataall$choice_1a1)
+dataall$choice_1a1 <- gsub('3', 'Something Else', dataall$choice_1a1)
+dataall$choice_1a1 <- gsub('4', 'Unclassified', dataall$choice_1a1)
+```
+
+-----------------------------------------------------------------------
+```{r}
+```
+##### Participants
+Adolescents (M age=16.60, SD=1.12) from Canada (n=203) and China (n=215) were assigned to two contexts (patriotism vs. friendship, representing ‘collectivism’ and ‘individualism’ respectively)
+
+##### Procedure
+Participants were shown a Microsoft PowerPoint presentation on a MacBook with hypothetical scenarios reflecting either patriotic (collective-oriented) values or friendship (individual-oriented) values. The patriotic condition involved the story character attending an international game (i.e. the Olympics) to watch compatriots (i.e. an athlete representing the story character’s home country) compete in various sporting events. The friendship condition involved the story character attending a national game (i.e. the Canada Summer Games) to watch their best friend compete in various sporting events. In two of the six scenarios, the story character learned that their compatriot or friend, depending on the story condition, took performance-enhancing drugs, and went on to win the competition. 
+
+In the scenario, the protagonist was questioned by a journalist as to whether their competing compatriot or best friend had cheated, and the story character decides whether to lie to protect or to tell the truth to expose their compatriot or best friend. Specifically, one friendship scenario involves the protagonist telling a lie to protect his/her best friend, while the contrasting friendship scenario has the protagonist telling a truth to expose the best friend. Likewise, in one scenario in the patriotic condition the protagonist tells a lie to cover up for their country while the other scenario has the protagonist telling a truth to expose their country. 
+An example of one of the individual scenario condition where the story character tells the truth against her best friend, exposing the best friend’s cheating, is as follows:
+
+*Danielle is a British Columbian who is quite a fan of boxing. She was very excited because she was able to go to the Canada Summer Games to see her best friend from British Columbia compete against a contestant from New Brunswick in the boxing event. Before the competition, Danielle learned that her best friend had been taking performance-enhancing drugs that were not readily detectable, and should have been disqualified. Later, her best friend won the boxing event and a spot on the Canadian boxing team against the contestant from New Brunswick. After the competition, Danielle came across two journalists and overheard them praise her best friend. Danielle got so interested that she joined the conversation. One of the journalists then said to Danielle: “Your best friend is really amazing. Is she taking performance-enhancing drugs?” Danielle thought to herself:*
+*1. If I say she is not taking performance-enhancing drugs, I would have to lie; but my best friend will look really good to have won a spot on the Canadian boxing team.*
+*2. If I say she is taking performance-enhancing drugs, I would not have to lie; but she might be disqualified and make herself look bad to the rest of the Canada Games.*
+
+After reading out this part of the story, the interviewer asked participants to write down what they would say if they were faced with this dilemma, in the space provided on the scoresheet (“What would you say if you were [story character] and why?”). This question is labeled here the **Choice** question. The interviewer then revealed to participants how the story character responded to the dilemma:
+
+*Danielle thought about it for a moment, and answered: “Yes, she is taking performance-enhancing drugs.”*
+
+The interviewer then asked participants to classify the story character’s response by circling one of the three given classifications on the score sheet: a “lie”, the “truth”, or “something else” (“Is what [story character] said a lie, the truth, or something else?”). This is the **Classification** question. 
+
+Further, the interviewer then asked the participants to judge the story character’s response (“Is what [story character] said good or bad? How good/bad was it?”). Participants used a 7-point Likert scale from “very, very bad” (i.e. -3) to “very, very good” (i.e. +3) to rate the story character’s truthful or deceptive statements, the **Judgement** question. 
+
+The interviewer, lastly, asked participants to justify their judgments in the space provided in the scoresheet (“Why do you think what s/he said is good/bad?”), the **Justification** question.
+
+
+Choice
+======================================================================
+
+-----------------------------------------------------------------------
+
+### Lying Condition
+
+```{r}
+L1<-dataall %>%
+  ggplot() +
+  geom_bar(mapping = aes(x = Country, 
+                         fill = choice_1a1),
+           position = "fill")+
+  facet_wrap(~ Story_Type, ncol = 2)+
+  scale_x_discrete(name="Country") +
+scale_y_continuous(name="Proportion") +
+scale_fill_brewer(name="Choice")+
+  ggtitle("Choice",subtitle = "Lying condition")
+
+L1
+```
+
+-----------------------------------------------------------------------
+Canadian participants in the Friendship condition made significantly different choices from their Patriotism condition counterparts, *χ2* (3, N = 406) = 32.058, *p* <.001. In the Patriotism condition, Chinese and Canadian participants chose significantly differently, *χ2* (3, N = 404) = 13.090, *p* =.003: Chinese youths were less inclined to lie for their country.
+-----------------------------------------------------------------------
+
+### Truth-Telling condition
+
+```{r}
+
+dataall %>%
+  ggplot() +
+  geom_bar(mapping = aes(x = City, 
+                         fill = dataall$choice_2a1),
+           position = "fill")+
+  facet_wrap(~ Story_Type, ncol = 2)+
+  scale_x_discrete(name="Country",
+                         breaks=c("1", "3"),
+                         labels=c("Canada", "China")) +
+scale_y_continuous(name="Judgments") +
+scale_fill_brewer(name="Choice",
+                  breaks=c("1", "2", "3","4"),
+                  palette="Blues",
+                  labels=c("Lie", "Truth", "Something Else","Unclassifiable"))+
+  ggtitle("Choice",subtitle = "Truth-Telling condition")
+```
+
+----------------------------------------------------------------------------
+Chinese participants in the Patriotism condition made significantly different choices than their Friendship condition counterparts, *χ2* (3, N = 430) = 7.920, *p* =.048. In the Friendship condition, Chinese and Canadian participants’ choices were significantly different, *χ2* (3, N = 432) = 67.685, *p* <.001. 
+----------------------------------------------------------------------------
+
+
+Classification
+============================================================================
+
+----------------------------------------------------------------------------
+
+###Lying condition
+
+```{r}
+dataall$classify_1b=as.character(dataall$classify_1b)
+dataall %>%
+  ggplot() +
+  geom_bar(mapping = aes(x = City, 
+                         fill = dataall$classify_1b),
+           position = "fill")+
+  facet_wrap(~ Story_Type, ncol = 2)+
+  scale_x_discrete(name="Country",
+                         breaks=c("1", "3"),
+                         labels=c("Canada", "China")) +
+scale_y_continuous(name="Judgments") +
+scale_fill_brewer(name="Choice",
+                  breaks=c("1", "2", "3","4"),
+                  palette = "Blues",
+                  labels=c("Lie", "Truth", "Something Else","Unclassifiable"))+
+  ggtitle("Classification",subtitle = "Lying condition")
+```
+
+-----------------------------------------------------------------------------
+In both lying for the Patriotism **(*χ2* (3, N = 202) = 8.605, *p* = .055)** and Friendship **(*χ2* (2, N = 215) = 1.594, *p* = .451)** conditions, there is no cultural variance.
+In both Western **(*χ2* (2, N = 202) = 7.531, *p* = .057)** and Eastern **(*χ2* (2, N = 215) = 8.330, *p* = .056)** cultures, there is no situational difference.
+
+-----------------------------------------------------------------------------
+
+### Truth-Telling Condition
+
+```{r}
+dataall$classify_2b=as.character(dataall$classify_2b)
+dataall %>%
+  ggplot() +
+  geom_bar(mapping = aes(x = City, 
+                         fill = dataall$classify_2b),
+           position = "fill")+
+  facet_wrap(~ Story_Type, ncol = 2)+
+  scale_x_discrete(name="Country",
+                         breaks=c("1", "3"),
+                         labels=c("Canada", "China")) +
+scale_y_continuous(name="Judgments") +
+scale_fill_brewer(name="Choice",
+                  breaks=c("1", "2", "3","4"),
+                  palette = "Blues",
+                  labels=c("Lie", "Truth", "Something Else","Unclassifiable"))+
+  ggtitle("Classification",subtitle = "Truth-telling condition")
+```
+
+-----------------------------------------------------------------------------
+In both truth agianst the Patriotism **( *χ2* (2, N = 202) = 3.048, *p* = .218)** and Friendship **(*χ2* (2, N = 216) = 1.327, *p* = .515)** conditions, there is no cultural variance. 
+In both Western **(*χ2* (2, N = 203) = 3.495, *p* = .174)** and Eastern **( *χ2* (2, N = 215) = .201, *p* = .904)** cultures, there is no situational difference.
+-----------------------------------------------------------------------------
+
+Judgment
+============================================================================
+
+Row
+-----------------------------------------------------------------------
+###Lying Condition, by Story Type
+```{r judgments_1, echo=FALSE, warning=FALSE, message=FALSE}
+#Lying condition, by story type
+j1<-ggbarplot(dataall, 
+          x = "Story_Type", 
+          y = "judgment_1c",
+          add = "mean",
+          fill = "Country",
+          palette = "jco", 
+          position = position_dodge(0.7))+
+  theme(legend.position="right") + 
+  stat_compare_means(aes(group = Country), 
+                     label = "p.format", label.y = -1.20) +
+scale_fill_discrete(name="Country") +
+scale_x_discrete(name="Story Type") +
+scale_y_continuous(name="Judgments") 
+
+set_palette(j1,"Paired")
+```
+
+###Lying Condition, by Country
+
+```{r judgments_2, echo=FALSE, warning=FALSE, message=FALSE}
+#Lying condition, by country
+j2<-ggbarplot(dataall, 
+          x = "Country", 
+          y = "judgment_1c",
+          add = "mean",
+          fill = "Story_Type",
+          position = position_dodge(0.7))+
+  theme(legend.position="right") + 
+  stat_compare_means(aes(group = Story_Type), 
+                     label = "p.format", label.y = -1.2) +
+scale_x_discrete(name="Country") +
+scale_fill_discrete(name="Story Type") +
+scale_y_continuous(name="Judgments")
+
+set_palette(j2,"Paired")
+```
+
+Row
+-----------------------------------------------------------------------------
+
+###Truth-Telling Condition, by Story Type
+
+```{r judgments_3, echo=FALSE, warning=FALSE, message=FALSE}
+#Truth-Telling condition, by story type
+j3 <- ggbarplot(dataall, 
+          x = "Story_Type", 
+          y = "judgment_2c",
+          add = "mean",
+          fill = "Country",
+          position = position_dodge(0.70))+
+  theme(legend.position="right") + 
+  stat_compare_means(aes(group = Country), 
+                     label = "p.format", label.y = 1.2) +
+scale_color_discrete(name="Country") +
+scale_x_discrete(name="Story Type") +
+scale_y_continuous(name="Judgments") 
+
+set_palette(j3,"Paired")
+```
+
+###Truth-Telling Condition, by Country
+
+```{r judgments_4, echo=FALSE, warning=FALSE, message=FALSE}
+#Lying condition, by country
+j4 <- ggbarplot(dataall, 
+          x = "City", 
+          y = "judgment_2c",
+          add = "mean",
+          fill = "Story_Type",
+          position = position_dodge(0.70))+
+  theme(legend.position="right") + 
+  stat_compare_means(aes(group = Story_Type), 
+                     label = "p.format", label.y = 1.2) +
+scale_x_discrete(name="Country",
+                 breaks=c("1", "3"),
+                 labels=c("Canada", "China")) +
+scale_fill_discrete(name="Story Type") +
+scale_y_continuous(name="Judgments") 
+
+set_palette(j4,"Paired")
+```
+
+
+Justification
+============================================================================
+Row
+-----------------------------------------------------------------------
+
+###Sentiment Analysis_Lying Condition
+
+```{r sentiment analysis_1,echo=FALSE, message=FALSE, warning=FALSE}
+L_justification <- dataall %>% select(18) 
+L_justification$Justification_1d_exact<-removePunctuation(L_justification$Justification_1d_exact)
+List <- strsplit(L_justification$Justification_1d_exact, " ")
+
+L_text <- data.frame(word=unlist(List)) %>% 
+  filter(word!="") 
+  
+L_text$word = as.character(L_text$word)
+L_text$word <- tolower(L_text$word)
+
+mystopwords <- c(stopwords('english'), "dont", "stephani","although","will","tell","said","think")
+mystopwords <- data.frame(word=unlist(mystopwords))
+L_cleaned <- L_text %>%
+  anti_join(mystopwords) 
+
+#Substitute the words that "Stop_words" failed to recognize
+L_cleaned$stem <- stemDocument(L_cleaned$word)
+L_cleaned$stem <- gsub('told', 'tell', L_cleaned$stem)
+L_cleaned$stem <- gsub('said', 'say', L_cleaned$stem)
+L_cleaned$stem <- gsub('countri', 'country', L_cleaned$stem)
+L_cleaned$stem <- gsub('best', 'good', L_cleaned$stem)
+L_cleaned$stem <- gsub('athlet', 'athlete', L_cleaned$stem)
+
+#Generate data frame with sentiment derived from the NRC
+L_nrc <- L_cleaned %>% 
+  inner_join(get_sentiments("nrc")) %>%
+  group_by(sentiment)
+
+L_nrc %>%
+  #Summarize count per word
+  ungroup %>%
+  count(word, sentiment) %>%
+  #Highest freq on top
+  arrange(desc(n)) %>% 
+  #Identify rank within group
+  group_by(sentiment) %>% # 
+  mutate(top = seq_along(word)) %>%
+  #Retain top 8 frequent words
+  filter(top <= 5) %>%
+  #Create barplot
+  ggplot(aes(x = -top, y = n, fill = sentiment)) + 
+  geom_col(color = "white") +
+  #Print words in plot instead of as axis labels
+  geom_text(aes(label = word), hjust = "left", nudge_y = 5, size = 3.5) +
+  labs(title = "Sentiment Analysis (lying condition)",
+       x = NULL,
+       y = "Word count") +
+  scale_y_continuous(limits = c(0, 220)) +
+  facet_wrap( ~ sentiment, ncol = 5) +
+  coord_flip() +
+  theme(legend.position = "none",
+        #Rotate x text
+        axis.text.x = element_text(angle = 30, hjust = .8),
+        #Remove tick marks and text on y-axis
+        axis.ticks.y = element_blank(),
+        axis.text.y = element_blank())
+```
+
+###Word Cloud_Truth-Telling Condition
+
+```{r wordcloud_lying,echo=FALSE, message=FALSE, warning=FALSE}
+L_cloud <-
+  L_cleaned %>%
+  select(1) %>%
+  group_by(word) %>%
+  count()
+
+wordcloud2(L_cloud, size=1.6, color='steelblue')
+```
+
+Row
+-----------------------------------------------------------------------
+
+###Sentiment Analysis_Truth-Telling Condition
+
+```{r justifications_truth-telling, echo=FALSE, warning=FALSE}
+T_justification <- dataall %>% select(29) 
+T_justification$Justification_2d_exact<-removePunctuation(T_justification$justification_2d_exact)
+List2 <- strsplit(T_justification$Justification_2d_exact, " ")
+
+T_text <- data.frame(word=unlist(List2)) %>% 
+  filter(word!="") 
+  
+T_text$word = as.character(T_text$word)
+T_text$word <- tolower(T_text$word)
+
+mystopwords <- c(stopwords('english'), "dont", "stephani","although","will")
+mystopwords <- data.frame(word=unlist(mystopwords))
+
+T_cleaned <- T_text %>%
+  anti_join(mystopwords) 
+
+#Substitute the words that "Stop_words" failed to recognize
+T_cleaned$stem <- stemDocument(T_cleaned$word)
+T_cleaned$stem <- gsub('told', 'tell', T_cleaned$stem)
+T_cleaned$stem <- gsub('said', 'say', T_cleaned$stem)
+#Generate data frame with sentiment derived from the NRC
+T_nrc <- T_cleaned %>% 
+  inner_join(get_sentiments("nrc")) %>%
+  group_by(sentiment)
+
+ts<- 
+  T_nrc %>%
+  #Summarize count per word
+  ungroup %>%
+  count(word, sentiment) %>%
+  #Highest freq on top
+  arrange(desc(n)) %>% 
+  #Identify rank within group
+  group_by(sentiment) %>% # 
+  mutate(top = seq_along(word)) %>%
+  #Retain top 8 frequent words
+  filter(top <= 5) %>%
+  #Create barplot
+  ggplot(aes(x = -top, y = n, fill = sentiment)) + 
+  geom_col(color = "white") +
+  #Print words in plot instead of as axis labels
+  geom_text(aes(label = word), hjust = "left", nudge_y = 5, size = 3.5) +
+  labs(title = "Sentiment Analysis (truth-telling condition)",
+       x = NULL,
+       y = "Word count") +
+  scale_y_continuous(limits = c(0, 220))+
+  facet_wrap( ~ sentiment, ncol = 5) +
+  coord_flip() +
+  theme(legend.position = "none",
+        #Rotate x text
+        axis.text.x = element_text(angle = 30, hjust = 0.8),
+        #Remove tick marks and text on y-axis
+        axis.ticks.y = element_blank(),
+        axis.text.y = element_blank())
+
+ts
+```
+
+###Word Cloud_Truth-Telling Condition
+
+```{r wordcloud_truth,echo=FALSE, message=FALSE, warning=FALSE}
+library(wordcloud)
+T_cloud <-
+  T_cleaned %>%
+  select(1) %>%
+  group_by(word) %>%
+  count()
+
+T_cloud %>%
+  with(wordcloud(word, n, color="steelblue"))
+```
+
+
